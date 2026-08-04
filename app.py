@@ -1,5 +1,5 @@
 """
-RAG Chatbot — University Services (Starter Template)
+RAG Chatbot — University Services (DUT - Bách khoa Đà Nẵng)
 Streamlit app kết nối RAG Retrieval (Task 9) và Generation (Task 10).
 
 Chạy:
@@ -15,41 +15,35 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Thêm project root vào sys.path để import các task từ src/
 PROJECT_ROOT = Path(__file__).parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-# =============================================================================
 # PAGE CONFIG
-# =============================================================================
-
 st.set_page_config(
-    page_title="University Services RAG Chatbot",
+    page_title="DUT University Services RAG Chatbot",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# =============================================================================
 # SIDEBAR — INFO & SETTINGS
-# =============================================================================
-
 with st.sidebar:
-    st.title("🎓 University Services RAG")
-    st.caption("Trợ lý hỏi đáp về dịch vụ và chính sách đại học (học phí, học bổng, ký túc xá, thư viện)")
+    st.title("🎓 DUT RAG Chatbot")
+    st.caption("Trợ lý hỏi đáp quy chế & dịch vụ sinh viên Trường Đại học Bách khoa - ĐH Đà Nẵng")
 
     st.divider()
 
     st.subheader("💡 Câu hỏi gợi ý")
     suggestions = [
-        "Học phí tại RMIT Vietnam là bao nhiêu?",
-        "Làm sao để đặt phòng học nhóm ở thư viện?",
-        "Điều kiện xin học bổng Academic Achievement?",
-        "Dịch vụ hỗ trợ chỗ ở cho sinh viên như thế nào?",
-        "Cách đăng ký học phần qua myRMIT?",
+        "Quy định về đồ án tốt nghiệp khóa 2021?",
+        "Quy đổi chứng chỉ CNTT quốc tế như thế nào?",
+        "Điều kiện xét học bổng khuyến khích học tập?",
+        "Quy trình đăng ký học phần trên cổng SV DUT?",
+        "Hướng dẫn dịch vụ thư viện và đặt phòng học nhóm?",
+        "Quy định về liêm chính học thuật đối với sinh viên?",
     ]
     for s in suggestions:
-        if st.button(s, use_container_width=True, key=f"sug_{s[:20]}"):
+        if st.button(s, use_container_width=True, key=f"sug_{hash(s)}"):
             st.session_state["pending_query"] = s
 
     st.divider()
@@ -60,23 +54,16 @@ with st.sidebar:
     st.caption("**Kiến trúc hệ thống:**")
     st.caption("Hybrid Retrieval (Semantic + BM25) → RRF Rerank → PageIndex Fallback → LLM Generation có Citation")
 
-# =============================================================================
 # SESSION STATE
-# =============================================================================
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "pending_query" not in st.session_state:
     st.session_state.pending_query = None
 
-# =============================================================================
 # MAIN CHAT AREA
-# =============================================================================
+st.title("🎓 DUT University Services RAG Chatbot")
+st.caption("Hệ thống hỏi đáp thông tin chính sách & dịch vụ sinh viên (ĐH Bách khoa - ĐH Đà Nẵng)")
 
-st.title("🎓 University Services RAG Chatbot")
-st.caption("Hệ thống hỏi đáp thông tin dịch vụ đại học (Học phí, Học bổng, Ký túc xá, Thư viện)")
-
-# Hiển thị lịch sử chat
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
@@ -86,47 +73,30 @@ for msg in st.session_state.messages:
                     meta = src.get("metadata", {})
                     source_name = meta.get("source", "Unknown")
                     doc_type = meta.get("type", "unknown")
-                    score = src.get("score", 0)
-                    st.markdown(f"**[{i}] {source_name}** `{doc_type}` | score: `{score:.4f}`")
+                    cosine = src.get("original_cosine_score", src.get("score", 0))
+                    rrf_score = src.get("score", 0)
+                    st.markdown(f"**[{i}] {source_name}** `{doc_type}` | cosine: `{cosine:.4f}` | rrf: `{rrf_score:.4f}`")
                     st.text(src.get("content", "")[:300] + "...")
                     st.divider()
 
-# =============================================================================
 # QUERY HANDLING
-# =============================================================================
-
-# Xử lý khi bấm nút gợi ý hoặc nhập câu hỏi mới
-user_input = st.chat_input("Nhập câu hỏi của bạn về chính sách/dịch vụ đại học...")
+user_input = st.chat_input("Nhập câu hỏi của bạn về chính sách/dịch vụ ĐH Bách khoa Đà Nẵng...")
 query = user_input or st.session_state.pending_query
 
 if query:
     st.session_state.pending_query = None
 
-    # Hiển thị câu hỏi của user
     st.session_state.messages.append({"role": "user", "content": query})
     with st.chat_message("user"):
         st.markdown(query)
 
-    # Sinh câu trả lời từ RAG Pipeline
     with st.chat_message("assistant"):
-        with st.spinner("Đang tìm kiếm tài liệu và tổng hợp câu trả lời..."):
+        with st.spinner("Đang truy vấn dữ liệu DUT và tổng hợp câu trả lời..."):
             try:
-                # TODO (Học viên): Tích hợp hàm sinh câu trả lời từ Task 10
-                # Ví dụ:
-                # from src.task10_generation import generate_with_citation
-                # response = generate_with_citation(query, top_k=top_k)
-                # answer = response["answer"]
-                # sources = response.get("sources", [])
-
-                # Tạm thời mockup để test UI:
                 from src.task10_generation import generate_with_citation
                 response = generate_with_citation(query, top_k=top_k)
                 answer = response.get("answer", "Chưa thể trả lời.")
                 sources = response.get("sources", [])
-
-            except NotImplementedError:
-                answer = "⚠️ **Task 10 chưa được implement.** Hãy hoàn thành `src/task10_generation.py` để kết nối pipeline vào UI!"
-                sources = []
             except Exception as e:
                 answer = f"❌ **Lỗi khi chạy RAG Pipeline:** {e}"
                 sources = []
@@ -139,8 +109,9 @@ if query:
                         meta = src.get("metadata", {})
                         source_name = meta.get("source", "Unknown")
                         doc_type = meta.get("type", "unknown")
-                        score = src.get("score", 0)
-                        st.markdown(f"**[{i}] {source_name}** `{doc_type}` | score: `{score:.4f}`")
+                        cosine = src.get("original_cosine_score", src.get("score", 0))
+                        rrf_score = src.get("score", 0)
+                        st.markdown(f"**[{i}] {source_name}** `{doc_type}` | cosine: `{cosine:.4f}` | rrf: `{rrf_score:.4f}`")
                         st.text(src.get("content", "")[:300] + "...")
                         st.divider()
 
