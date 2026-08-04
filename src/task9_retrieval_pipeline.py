@@ -53,6 +53,10 @@ def retrieve(
     if best_dense_score < OUT_OF_SCOPE_THRESHOLD and not sparse_results:
         return []
 
+    # Gắn original_cosine_score từng chunk từ dense_results trước khi merge RRF
+    for item in dense_results:
+        item["original_cosine_score"] = item.get("score", 0.0)
+
     # Step 2: Merge using RRF (or skip if reranking disabled)
     if use_reranking and dense_results and sparse_results:
         merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
@@ -63,12 +67,11 @@ def retrieve(
     else:
         merged = []
 
-    # Gắn original_cosine_score và source tag
+    # Gắn source tag và fallback original_cosine_score nếu thiếu (ví dụ từ sparse-only)
     for item in merged:
         item["source"] = "hybrid"
-        # Giữ cosine score gốc bên cạnh RRF score
         if "original_cosine_score" not in item:
-            item["original_cosine_score"] = best_dense_score
+            item["original_cosine_score"] = 0.0
 
     # Step 3: Trigger Fallback if raw cosine similarity is below threshold or hybrid results are empty
     if best_dense_score < score_threshold or not merged:
