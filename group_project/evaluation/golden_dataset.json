@@ -1,17 +1,92 @@
 [
   {
-    "question": "Học phí hàng năm của chương trình Business tại RMIT Vietnam là bao nhiêu?",
-    "expected_answer": "Khoảng 375.840.000 VND mỗi năm (tùy chương trình cụ thể).",
-    "expected_context": "Trang Tuition Fees, mục Undergraduate Programs"
+    "question": "Mỗi năm Trường ĐH Bách khoa bố trí bao nhiêu đợt làm đồ án tốt nghiệp và thời gian mỗi đợt bao lâu?",
+    "expected_answer": "Mỗi năm học Trường bố trí 2 đợt làm đồ án tốt nghiệp, thời gian thực hiện mỗi đợt là 15 tuần.",
+    "expected_context": "qd209-quy-dinh-do-an-tot-nghiep.md"
   },
   {
-    "question": "Học phí được thanh toán theo hình thức nào?",
-    "expected_answer": "Thanh toán theo từng học kỳ, tính theo từng môn học đã đăng ký.",
-    "expected_context": "Trang Tuition Fees, mục Payment Structure"
+    "question": "Quy định đồ án tốt nghiệp áp dụng cho những đối tượng nào?",
+    "expected_answer": "Quy định áp dụng đối với các sinh viên thuộc các chương trình đào tạo trình độ đại học, trừ Chương trình tiên tiến; giảng viên và giảng viên thỉnh giảng tham gia hướng dẫn, phản biện và chấm bảo vệ ĐATN; các cán bộ viên chức có liên quan.",
+    "expected_context": "qd209-quy-dinh-do-an-tot-nghiep.md"
   },
   {
-    "question": "Trường có cung cấp ký túc xá trong khuôn viên không?",
-    "expected_answer": "Không — trường không cung cấp chỗ ở trong khuôn viên, nhưng có đội ngũ hỗ trợ sinh viên tìm chỗ ở gần trường.",
-    "expected_context": "Trang Accommodation Services"
+    "question": "Quy chế đào tạo 2021 áp dụng cho sinh viên khóa tuyển sinh từ năm nào?",
+    "expected_answer": "Quy định áp dụng đối với sinh viên khóa tuyển sinh từ năm 2021 thuộc sự quản lý của Trường.",
+    "expected_context": "qd2244-quy-che-dao-tao-2021.md"
+  },
+  {
+    "question": "Sinh viên đăng ký lựa chọn bằng cử nhân hay bằng kỹ sư vào thời điểm nào?",
+    "expected_answer": "Giữa học kỳ thứ 4, Trường tổ chức cho sinh viên đăng ký lựa chọn giữa bằng cử nhân và đào tạo chuyên sâu đặc thù (cấp bằng kỹ sư).",
+    "expected_context": "qd2244-quy-che-dao-tao-2021.md"
+  },
+  {
+    "question": "Ngành Kiến trúc tại DUT được đào tạo theo hình thức nào?",
+    "expected_answer": "Riêng đối với ngành Kiến trúc, Nhà trường chỉ đào tạo chuyên sâu đặc thù (cấp bằng kiến trúc sư).",
+    "expected_context": "qd2244-quy-che-dao-tao-2021.md"
+  },
+  {
+    "question": "Chứng chỉ ICDL phiên bản Basic được quy đổi tương đương chuẩn CNTT nào?",
+    "expected_answer": "Chứng chỉ ICDL phiên bản Basic được quy đổi tương đương 'Chuẩn kỹ năng sử dụng CNTT Cơ bản'.",
+    "expected_context": "qd752-quy-doi-chung-chi-cntt.md"
+  },
+  {
+    "question": "Chứng chỉ MOS phiên bản Specialist được quy đổi tương đương chuẩn CNTT nào?",
+    "expected_answer": "Chứng chỉ MOS phiên bản Specialist được quy đổi tương đương 'Chuẩn kỹ năng sử dụng CNTT Nâng cao'.",
+    "expected_context": "qd752-quy-doi-chung-chi-cntt.md"
+  },
+  {
+    "question": "Nếu sinh viên nộp chứng chỉ CNTT không nằm trong bảng quy đổi thì xử lý thế nào?",
+    "expected_answer": "Các đơn vị căn cứ quy định tại Thông tư số 03/2014/TT-BTTTT ngày 11/3/2014 và các quy định liên quan để xem xét công nhận chuẩn đầu ra CNTT cho sinh viên.",
+    "expected_context": "qd752-quy-doi-chung-chi-cntt.md"
+  },
+  {
+    "question": "Sinh viên bị khiển trách trong phòng thi sẽ bị trừ bao nhiêu phần trăm điểm?",
+    "expected_answer": "Sinh viên bị kỷ luật khiển trách bị trừ 25% tổng số điểm của bài thi tương ứng. Hình thức khiển trách áp dụng khi vi phạm nhìn bài hoặc trao đổi bài 1 lần trong phòng thi.",
+    "expected_context": "qd3707-bo-sung-liem-chinh-hoc-thuat.md"
+  },
+  {
+    "question": "Hình thức cảnh cáo trong thi áp dụng khi nào và bị trừ bao nhiêu điểm?",
+    "expected_answer": "Hình thức cảnh cáo áp dụng khi đã bị khiển trách nhưng tiếp tục vi phạm, hoặc trao đổi bài làm/giấy nháp cho bạn, chép bài. Sinh viên bị trừ 50% tổng số điểm bài thi.",
+    "expected_context": "qd3707-bo-sung-liem-chinh-hoc-thuat.md"
+  },
+  {
+    "question": "Mang điện thoại vào phòng thi nhưng chưa sử dụng thì bị xử lý thế nào?",
+    "expected_answer": "Sinh viên mang phương tiện kỹ thuật (điện thoại, máy ảnh, đồng hồ thông minh...) vào phòng thi nhưng chưa sử dụng sẽ bị đình chỉ học tập 01 học kỳ.",
+    "expected_context": "qd3707-bo-sung-liem-chinh-hoc-thuat.md"
+  },
+  {
+    "question": "Điều kiện để được xét học bổng khuyến khích học tập tại DUT là gì?",
+    "expected_answer": "Điều kiện: ĐTBHT đạt loại Khá trở lên (từ 2.50/4.0), Điểm rèn luyện từ Tốt trở lên (từ 80 điểm), không bị kỷ luật từ mức khiển trách trở lên trong học kỳ xét.",
+    "expected_context": "article_01.md"
+  },
+  {
+    "question": "Mức học bổng Xuất sắc tại DUT được hỗ trợ bao nhiêu phần trăm học phí?",
+    "expected_answer": "Mức Xuất sắc (ĐTBHT 3.60 - 4.00, Rèn luyện Xuất sắc) được hỗ trợ 150% học phí trần.",
+    "expected_context": "article_01.md"
+  },
+  {
+    "question": "Sinh viên kiểm tra danh sách học bổng dự kiến ở đâu và phản hồi trong bao lâu?",
+    "expected_answer": "Sinh viên kiểm tra trên Cổng thông tin sinh viên http://sv.dut.udn.vn/ và gửi phản hồi trong vòng 7 ngày làm việc kể từ ngày thông báo.",
+    "expected_context": "article_01.md"
+  },
+  {
+    "question": "Sinh viên có thể rút học phần trong bao lâu kể từ đầu học kỳ?",
+    "expected_answer": "Sinh viên được phép rút học phần trong 2 tuần đầu học kỳ. Học phần rút không ghi nhận điểm F nhưng học phí xử lý theo quy định tài chính.",
+    "expected_context": "article_02.md"
+  },
+  {
+    "question": "Thư viện DUT mở cửa vào những giờ nào?",
+    "expected_answer": "Thứ 2 đến Thứ 6: 07:30 - 21:00. Thứ 7: 08:00 - 17:00. Chủ nhật và ngày lễ: Nghỉ.",
+    "expected_context": "article_03.md"
+  },
+  {
+    "question": "Sinh viên được mượn tối đa bao nhiêu cuốn sách giáo trình và trong bao lâu?",
+    "expected_answer": "Sách giáo trình được mượn tối đa 5 cuốn/lần, thời hạn mượn 30 ngày.",
+    "expected_context": "article_03.md"
+  },
+  {
+    "question": "Thư viện có bao nhiêu phòng học nhóm và cần đặt trước bao lâu?",
+    "expected_answer": "Thư viện có 10 phòng học nhóm (sức chứa 6 - 15 sinh viên). Sinh viên đặt phòng trực tuyến qua portal thư viện trước ít nhất 24 giờ.",
+    "expected_context": "article_03.md"
   }
 ]
