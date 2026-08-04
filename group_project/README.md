@@ -50,7 +50,7 @@ Xem code mẫu (DeepEval/RAGAS/TruLens) chi tiết trong `README.md` gốc mục
 
 ### Deliverable Evaluation
 
-- [ ] File `group_project/evaluation/golden_dataset.json` — 15+ cặp Q&A
+- [x] File `group_project/evaluation/golden_dataset.json` — 15+ cặp Q&A
 - [ ] File `group_project/evaluation/eval_pipeline.py` — script chạy evaluation
 - [ ] File `group_project/evaluation/results.md` — bảng điểm + phân tích
 - [ ] So sánh A/B ít nhất 2 configs
@@ -70,7 +70,49 @@ Xem code mẫu (DeepEval/RAGAS/TruLens) chi tiết trong `README.md` gốc mục
 ## Kiến Trúc Hệ Thống
 
 ```
-[Vẽ diagram kiến trúc ở đây]
+┌──────────────────────────────────────────────────────────────┐
+│                    Streamlit UI (app.py)                      │
+│              User Input → Chat Display → Sources             │
+└──────────────────┬───────────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────────────┐
+│           Task 10 — Generation + Citation (LLM)              │
+│  OpenRouter/GPT-4o-mini │ System Prompt │ Out-of-scope Guard │
+└──────────────────┬───────────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────────────┐
+│             Task 9 — Retrieval Pipeline (Hybrid)             │
+│                                                              │
+│  ┌─────────────────┐   ┌──────────────────┐                  │
+│  │ Task 5: Semantic │   │ Task 6: Lexical  │                  │
+│  │ (ChromaDB+MiniLM)│   │ (BM25+TermExpand)│                  │
+│  └────────┬────────┘   └────────┬─────────┘                  │
+│           └──────┬──────────────┘                             │
+│                  ▼                                           │
+│        Task 7: RRF Reranking (k=60)                          │
+│                  │                                           │
+│     ┌────────────▼────────────┐                              │
+│     │ Score < 0.3 → Fallback  │                              │
+│     └────────────┬────────────┘                              │
+│                  ▼                                           │
+│      Task 8: PageIndex (Structural)                          │
+└──────────────────────────────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────────────┐
+│           Task 4 — Chunking & Indexing                       │
+│  RecursiveCharacterTextSplitter (800/100) → ChromaDB         │
+│  Embedding: sentence-transformers/all-MiniLM-L6-v2 (384d)   │
+└──────────────────────────────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────────────┐
+│        Task 1-3 — Data Pipeline                              │
+│  Crawl (DUT) → Standardize → Convert to Markdown            │
+│  9 Legal docs + 5 News articles                              │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -79,10 +121,10 @@ Xem code mẫu (DeepEval/RAGAS/TruLens) chi tiết trong `README.md` gốc mục
 
 | Thành viên | MSSV | Nhiệm vụ | Trạng thái |
 |-----------|------|----------|------------|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
+| Nguyễn Tiến | 2A202601655 | Frontend & Chatbot Developer (app.py, UI/UX) | ✅ Hoàn thành |
+| Trần Tiến Dũng | 2A202601783 | Team Leader & RAG Architect (Task 9-10, Pipeline) | ✅ Hoàn thành |
+| Lê Hoàng Việt | 2A202601543 | Evaluation & QA Engineer (Golden Dataset, Eval Pipeline) | 🔄 Đang làm |
+| Nguyễn Thiên Tài | 2A202601849 | Data & Retrieval Specialist (Task 1-6, Data Collection) | ✅ Hoàn thành |
 
 ---
 
@@ -92,10 +134,15 @@ Xem code mẫu (DeepEval/RAGAS/TruLens) chi tiết trong `README.md` gốc mục
 # Cài đặt dependencies
 pip install -r requirements.txt
 
+# Setup API key
+cp .env.example .env
+# Thêm OPENROUTER_API_KEY vào file .env
+
+# Index dữ liệu (chạy 1 lần)
+python -m src.task4_chunking_indexing
+
 # Chạy app
 streamlit run app.py
-# hoặc
-chainlit run app.py
 ```
 
 ---
